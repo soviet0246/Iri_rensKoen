@@ -1,5 +1,8 @@
 Voor het school project genaamd IRI
 
+Softing IA/FG-PB-2
+http://www.procentec.com/profihub/a5/en/index.php
+
 
 Specs:
 
