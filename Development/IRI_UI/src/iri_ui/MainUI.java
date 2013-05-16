@@ -8,6 +8,8 @@
 package iri_ui;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 /**
@@ -26,7 +28,11 @@ public class MainUI extends javax.swing.JFrame {
      */
     public MainUI() {
         initComponents();
-        SensorTable.setValueAt("bla", 3, 3);
+        DefaultListModel infoTraag = new DefaultListModel<>();
+        DefaultListModel infoSnel = new DefaultListModel<>();
+        DefaultListModel infoDigitaal = new DefaultListModel<>();
+        
+        
         
     }
 
@@ -39,6 +45,7 @@ public class MainUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        graphSelectGroup = new javax.swing.ButtonGroup();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
@@ -51,11 +58,11 @@ public class MainUI extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jListAnaloogLangzaam = new javax.swing.JList();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        jListAnaloogSne = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList();
+        jListDigitaal = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,32 +93,40 @@ public class MainUI extends javax.swing.JFrame {
 
         label1.setText("This area is going to contain a graph, we will be using http://www.jfree.org/jfreechart/ for this purpose");
 
-        jRadioButton1.setText("jRadioButton1");
+        graphSelectGroup.add(jRadioButton1);
+        jRadioButton1.setText("analoog langzaam");
 
-        jRadioButton2.setText("jRadioButton2");
+        graphSelectGroup.add(jRadioButton2);
+        jRadioButton2.setText("analoog snel");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setText("jRadioButton3");
+        graphSelectGroup.add(jRadioButton3);
+        jRadioButton3.setText("digitaal");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jListAnaloogLangzaam.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(jListAnaloogLangzaam);
 
-        jList3.setModel(new javax.swing.AbstractListModel() {
+        jListAnaloogSne.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList3);
+        jScrollPane4.setViewportView(jListAnaloogSne);
 
-        jList4.setModel(new javax.swing.AbstractListModel() {
+        jListDigitaal.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane5.setViewportView(jList4);
+        jScrollPane5.setViewportView(jListDigitaal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,7 +169,7 @@ public class MainUI extends javax.swing.JFrame {
                                         .addGap(99, 99, 99)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -201,6 +216,10 @@ public class MainUI extends javax.swing.JFrame {
         MaximimAllowedValueLabel.setText("Maximum allowed sensor value = " + MaximemAllowedValueSlider.getValue() + "%");
     }//GEN-LAST:event_MaximemAllowedValueSliderStateChanged
 
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -241,11 +260,12 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JLabel MaximimAllowedValueLabel;
     private javax.swing.JLabel MinimumAllowedValueLaber;
     private javax.swing.JSlider MinimumAllowedValueSlider;
+    private javax.swing.ButtonGroup graphSelectGroup;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
-    private javax.swing.JList jList4;
+    private javax.swing.JList jListAnaloogLangzaam;
+    private javax.swing.JList jListAnaloogSne;
+    private javax.swing.JList jListDigitaal;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
