@@ -22,17 +22,18 @@ public class MainUI extends javax.swing.JFrame {
      * multidimensional ArrayList, the outerst one is used to determine the colum, the inner ones contain the value's for the row's of the tabel in the UI. 
      */
     private ArrayList<ArrayList<String>> TabelContent = new ArrayList<>(10);
-    
+    public DefaultTableModel tablemodel;
     /**
      * Creates new form MainUI
      */
     public MainUI() {
+        System.out.print("Initializing... ");
         initComponents();
-        DefaultListModel infoTraag = new DefaultListModel<>();
-        DefaultListModel infoSnel = new DefaultListModel<>();
-        DefaultListModel infoDigitaal = new DefaultListModel<>();
-        
-        
+        tablemodel = new DefaultTableModel(0, 0);
+        SensorValueTable.setModel(tablemodel);
+        Thread cli = new Thread(new CLI(this));
+        cli.start();
+       System.out.println("Done! You can now type in commands!");
         
     }
 
@@ -54,15 +55,8 @@ public class MainUI extends javax.swing.JFrame {
         MinimumAllowedValueSlider = new javax.swing.JSlider();
         MaximemAllowedValueSlider = new javax.swing.JSlider();
         label1 = new java.awt.Label();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jListAnaloogLangzaam = new javax.swing.JList();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jListAnaloogSne = new javax.swing.JList();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jListDigitaal = new javax.swing.JList();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        SensorValueTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,40 +87,18 @@ public class MainUI extends javax.swing.JFrame {
 
         label1.setText("This area is going to contain a graph, we will be using http://www.jfree.org/jfreechart/ for this purpose");
 
-        graphSelectGroup.add(jRadioButton1);
-        jRadioButton1.setText("analoog langzaam");
-
-        graphSelectGroup.add(jRadioButton2);
-        jRadioButton2.setText("analoog snel");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+        SensorValueTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-
-        graphSelectGroup.add(jRadioButton3);
-        jRadioButton3.setText("digitaal");
-
-        jListAnaloogLangzaam.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jListAnaloogLangzaam);
-
-        jListAnaloogSne.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jListAnaloogSne);
-
-        jListDigitaal.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(jListDigitaal);
+        ));
+        jScrollPane1.setViewportView(SensorValueTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,6 +113,7 @@ public class MainUI extends javax.swing.JFrame {
                         .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(MinimumAllowedValueLaber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,23 +123,7 @@ public class MainUI extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(MaximimAllowedValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(52, 52, 52))
-                                    .addComponent(MaximemAllowedValueSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jScrollPane3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane5)
-                                        .addGap(99, 99, 99)))))
+                                    .addComponent(MaximemAllowedValueSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -177,22 +134,12 @@ public class MainUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(326, 326, 326)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(MinimumAllowedValueLaber)
                             .addComponent(MaximimAllowedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -201,7 +148,8 @@ public class MainUI extends javax.swing.JFrame {
                             .addComponent(MinimumAllowedValueSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(MaximemAllowedValueSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)))
+                        .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
 
@@ -215,10 +163,6 @@ public class MainUI extends javax.swing.JFrame {
     private void MaximemAllowedValueSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_MaximemAllowedValueSliderStateChanged
         MaximimAllowedValueLabel.setText("Maximum allowed sensor value = " + MaximemAllowedValueSlider.getValue() + "%");
     }//GEN-LAST:event_MaximemAllowedValueSliderStateChanged
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     
     /**
@@ -260,19 +204,12 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JLabel MaximimAllowedValueLabel;
     private javax.swing.JLabel MinimumAllowedValueLaber;
     private javax.swing.JSlider MinimumAllowedValueSlider;
+    private javax.swing.JTable SensorValueTable;
     private javax.swing.ButtonGroup graphSelectGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList2;
-    private javax.swing.JList jListAnaloogLangzaam;
-    private javax.swing.JList jListAnaloogSne;
-    private javax.swing.JList jListDigitaal;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
