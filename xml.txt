@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sensorRoot name="mylist" xml:lang="en">
+<sens>
+<sensName>sensor naam</sensName>
+<sensType>Type sensor<sensType>
+<ms>milisec</ms>
+<sensValue>waarde van de sensor</sensValue>
+<eenheid>graden, kilo's whatever</eenheid>
+<timeStamp>Datum in jaar-maand-dag-uur-seconde-milliseconde</timeStamp>
+<limit up="" low=""></limit>
+<alarm>No alarm OF alarm</alarm>
+</sens>
+</sensorRoot>
